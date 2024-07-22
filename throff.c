@@ -3,6 +3,8 @@
 
 extern int yyparse(void); // parser from bison generated file
 extern FILE *yyin; // input file
+extern void init_document(void);
+extern void free_document(void);
 
 void print_banner()
 {
@@ -29,6 +31,7 @@ void print_banner()
 int main(int argc, char** argv)
 {
   print_banner();
+  init_document();
 
   if(argc < 2) {
     fprintf(stderr, "Usage: %s <input file>\n", argv[0]);
@@ -44,6 +47,7 @@ int main(int argc, char** argv)
   int result = yyparse();
   fclose(yyin);
 
+  free_document();
   return result;
 }
 

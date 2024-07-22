@@ -32,13 +32,13 @@ $(BUILD_DIR):
 $(TARGET): $(OBJ_FILES)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ_FILES) $(LDFLAGS)
 
-# Rule for generating the lex output
-$(LEX_OUTPUT): $(LEX_SRC)
-	$(LEX) -o $(LEX_OUTPUT) $(LEX_SRC)
-
 # Rule for generating the yacc output
 $(YACC_OUTPUT) $(YACC_HEADER): $(YACC_SRC)
 	$(YACC) $(YFLAGS) -o $(YACC_OUTPUT) $(YACC_SRC)
+
+# Rule for generating the lex output
+$(LEX_OUTPUT): $(LEX_SRC) $(YACC_HEADER)
+	$(LEX) -o $(LEX_OUTPUT) $(LEX_SRC)
 
 # Rule for compiling lex and yacc output files (ignore warnings as errors)
 $(BUILD_DIR)/lex.yy.o: $(LEX_OUTPUT)
