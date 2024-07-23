@@ -1,11 +1,20 @@
 # Variables
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -Iinclude
 LEXFLAGS = -Wno-error
-LDFLAGS =
+LDFLAGS = -lhpdf
 YFLAGS = -d
 LEX = flex
 YACC = bison
+
+LIB_PATH = /usr/local/lib
+
+# currently only UNIX-like agnostic
+UNAME_S := $(shell uname -s)
+# Check if the operating system is macOS
+ifeq ($(UNAME_S),Darwin)
+    LDFLAGS += -Wl,-rpath,$(LIB_PATH)
+endif
 
 # Directories
 BUILD_DIR = build
@@ -19,7 +28,7 @@ YACC_SRC = $(PARSER_DIR)/mom.y
 LEX_OUTPUT = $(BUILD_DIR)/lex.yy.c
 YACC_OUTPUT = $(BUILD_DIR)/mom.tab.c
 YACC_HEADER = $(BUILD_DIR)/mom.tab.h
-OBJ_FILES = $(BUILD_DIR)/lex.yy.o $(BUILD_DIR)/mom.tab.o $(BUILD_DIR)/throff.o
+OBJ_FILES = $(BUILD_DIR)/lex.yy.o $(BUILD_DIR)/mom.tab.o $(BUILD_DIR)/throff.o $(BUILD_DIR)/pdf.o
 
 # Default target
 all: $(BUILD_DIR) $(TARGET)
@@ -46,6 +55,9 @@ $(BUILD_DIR)/lex.yy.o: $(LEX_OUTPUT)
 
 $(BUILD_DIR)/mom.tab.o: $(YACC_OUTPUT)
 	$(CC) $(CFLAGS) $(LEXFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/pdf.o: $(SRC_DIR)/pdf.c
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/pdf.c -o $(BUILD_DIR)/pdf.o
 
 # Rule for compiling the main C file
 $(BUILD_DIR)/throff.o: $(SRC_DIR)/throff.c

@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include "document.h"
 #include "build/mom.tab.h"
+#include "pdf.h"
 
 extern int yyparse(void); // parser from bison generated file
 extern FILE *yyin; // input file
@@ -45,7 +47,19 @@ int main(int argc, char** argv)
   }
 
   int result = yyparse();
+  printf("\n");
+  printf("Document Author: %s\n", doc.author);
+  printf("Title: %s\n\n", doc.title_en);
+  printf("%s", doc.content);
   fclose(yyin);
+  // finished bison parsing, everything is in doc now, later, maybe utilize bison for setting every configurations required to typeset pdf
+
+  initialize_pdf_document();
+  set_main_font_and_size("fonts/THSarabunNew.ttf", 16);
+  initialize_first_page();
+
+  new_page();
+  finalize_pdf("output.pdf");
 
   free_document();
   return result;
