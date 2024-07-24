@@ -16,7 +16,7 @@ document_t doc;
 }
 
 %token <str> T_STRING T_IDENTIFIER T_NEWLINE
-%token T_TITLE T_AUTHOR
+%token T_TITLE T_AUTHOR T_AFFLIATIONS
 
 %%
 
@@ -31,6 +31,7 @@ statements:
 statement:
     title_statement
     | author_statement
+    | affliation_statement
     | content_statement
     ;
 
@@ -50,6 +51,16 @@ author_statement:
         doc.author_en = strdup($3);
         printf("Thai Author: %s\n", $2);
         printf("English Author: %s\n", $3);
+        free($2);
+        free($3);
+    }
+
+affliation_statement:
+    T_AFFLIATIONS T_STRING T_STRING {
+        doc.affliation_th = strdup($2);
+        doc.affliation_en = strdup($3);
+        printf("Thai Aff: %s\n", $2);
+        printf("English Aff: %s\n", $3);
         free($2);
         free($3);
     }
@@ -100,11 +111,7 @@ content_statement:
 %%
 
 void init_document() {
-    doc.title_th = NULL;
-    doc.title_en = NULL;
-    doc.author_th = NULL;
-    doc.author_en = NULL;
-    doc.content = NULL;
+    memset(&doc, 0, sizeof(doc)); // initialize everything in document struct
 }
 
 void free_document() {

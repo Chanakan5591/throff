@@ -48,17 +48,19 @@ int main(int argc, char** argv)
 
   int result = yyparse();
   printf("\n");
-  printf("Document Author: %s\n", doc.author);
+  printf("Document Author: %s\n", doc.author_th);
   printf("Title: %s\n\n", doc.title_en);
-  printf("%s", doc.content);
+  printf("Content: %s\n\n", doc.content);
   fclose(yyin);
   // finished bison parsing, everything is in doc now, later, maybe utilize bison for setting every configurations required to typeset pdf
 
   initialize_pdf_document();
   set_main_font_and_size("fonts/THSarabunNew.ttf", 16);
+  set_main_bold_font("fonts/THSarabunNew Bold.ttf");
+  set_main_italics_font("fonts/THSarabunNew Italic.ttf");
+  set_main_bold_italics_font("fonts/THSarabunNew BoldItalic.ttf");
   initialize_first_page();
 
-  new_page();
   finalize_pdf("output.pdf");
 
   free_document();

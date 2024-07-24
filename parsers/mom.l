@@ -56,6 +56,16 @@
 	return T_AUTHOR;
 }
 
+.AFFLIATION {
+    fprintf(stderr, "Lex: T_AFFLIATIONS recognized: %s\n", yytext);
+    return T_AFFLIATIONS;
+}
+
+.AF {
+    fprintf(stderr, "Lex: T_AFFLIATIONS recognized: %s\n", yytext);
+    return T_AFFLIATIONS;
+}
+
 ^[^\.\n][^\n]* { // match everything except macros (starting with a dot)
 	yylval.str = strdup(yytext);
 	return T_IDENTIFIER;
