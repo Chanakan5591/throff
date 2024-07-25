@@ -82,6 +82,10 @@ void finalize_pdf(const char *filename)
     HPDF_Free(pdf);
 }
 
+void set_global_page_size(char* page_size_text) {
+    doc_config.page_size = NULL; // implement soon
+}
+
 HPDF_Page new_page()
 {
     HPDF_Page page = HPDF_AddPage(pdf);
@@ -206,6 +210,9 @@ void initialize_first_page()
     HPDF_Page_MoveTextPos(page, en_affliation_x, 0);
     HPDF_Page_ShowText(page, doc.affliation_en);
     /* END Affliations EN */
+
+    HPDF_Page_MoveTextPos(page, (-en_affliation_x + content_left), -doc_config.main_font_size - 32);
+    // start any user content
 
 
     HPDF_Page_EndText(page);

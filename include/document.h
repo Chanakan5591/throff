@@ -4,6 +4,7 @@
 #define DOCUMENT_H
 
 typedef struct {
+    char *paper_type;
     char *title_th;
     char *title_en;
     char *author_th;

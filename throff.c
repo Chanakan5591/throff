@@ -59,6 +59,7 @@ int main(int argc, char** argv)
   set_main_bold_font("fonts/THSarabunNew Bold.ttf");
   set_main_italics_font("fonts/THSarabunNew Italic.ttf");
   set_main_bold_italics_font("fonts/THSarabunNew BoldItalic.ttf");
+  set_global_page_size(doc.paper_type);
   initialize_first_page();
 
   finalize_pdf("output.pdf");

@@ -15,8 +15,8 @@ document_t doc;
     char *str;
 }
 
-%token <str> T_STRING T_IDENTIFIER T_NEWLINE
-%token T_TITLE T_AUTHOR T_AFFLIATIONS
+%token <str> T_STRING T_IDENTIFIER T_NEWLINE T_PAPER_TYPE
+%token T_TITLE T_AUTHOR T_AFFLIATIONS T_PAPER
 
 %%
 
@@ -32,6 +32,7 @@ statement:
     title_statement
     | author_statement
     | affliation_statement
+    | paper_type_statement
     | content_statement
     ;
 
@@ -63,6 +64,13 @@ affliation_statement:
         printf("English Aff: %s\n", $3);
         free($2);
         free($3);
+    }
+
+paper_type_statement:
+    T_PAPER T_PAPER_TYPE {
+        doc.paper_type = strdup($2);
+        printf("This paper is %s\n", $2);
+        free($2);
     }
 
 content_statement:
@@ -115,11 +123,14 @@ void init_document() {
 }
 
 void free_document() {
+    free(doc.paper_type);
     free(doc.title_th);
     free(doc.title_en);
     free(doc.author_th);
     free(doc.author_en);
     free(doc.content);
+    free(doc.affliation_en);
+    free(doc.affliation_th);
 }
 
 void yyerror(const char *s) {

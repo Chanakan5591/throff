@@ -66,6 +66,17 @@
     return T_AFFLIATIONS;
 }
 
+.PAPER {
+    fprintf(stderr, "Lex: T_PAPER_TYPE recognized: %s\n", yytext);
+    return T_PAPER;
+}
+
+[Aa][0-9]+|[Bb][0-9]+|[Ll]etter|[Ll]egal {
+    fprintf(stderr, "Lex: T_PAPER_TYPE (values) recognized: %s\n", yytext);
+    yylval.str = strdup(yytext);
+    return T_PAPER_TYPE;
+}
+
 ^[^\.\n][^\n]* { // match everything except macros (starting with a dot)
 	yylval.str = strdup(yytext);
 	return T_IDENTIFIER;
