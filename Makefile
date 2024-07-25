@@ -1,5 +1,5 @@
 # Variables
-CC = clang
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -Iinclude
 LEXFLAGS = -Wno-error
 LDFLAGS = -lhpdf

@@ -17,9 +17,9 @@ typedef struct {
 
 void initialize_pdf_document();
 void set_main_font_and_size(char* truetype_font_path, int font_size);
-void set_main_bold_font();
-void set_main_italics_font();
-void set_main_bold_italics_font();
+void set_main_bold_font(char *truetype_font_path);
+void set_main_italics_font(char *truetype_font_path);
+void set_main_bold_italics_font(char *truetype_font_path);
 void finalize_pdf(const char* filename);
 void set_global_page_size(char* page_size_text);
 HPDF_Page new_page();

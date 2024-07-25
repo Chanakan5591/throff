@@ -35,7 +35,6 @@
     return T_STRING;
 }
 
-
 .TI {
 	fprintf(stderr, "Lex: T_TITLE recognized: %s\n", yytext);
 	return T_TITLE;
@@ -71,7 +70,7 @@
     return T_PAPER;
 }
 
-[Aa][0-9]+|[Bb][0-9]+|[Ll]etter|[Ll]egal {
+A4|A3|LETTER|LEGAL|A5|B4|B5|EXECUTIVE|US4X6|US4X8|US5X7|COMM10 {
     fprintf(stderr, "Lex: T_PAPER_TYPE (values) recognized: %s\n", yytext);
     yylval.str = strdup(yytext);
     return T_PAPER_TYPE;

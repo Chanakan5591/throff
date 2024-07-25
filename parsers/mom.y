@@ -7,6 +7,8 @@
 void yyerror(const char *s);
 int yylex(void);
 
+int document_start = 0; // 1 when .START is found
+
 document_t doc;
 
 %}
@@ -96,7 +98,6 @@ content_statement:
             fprintf(stderr, "Error: Cannot allocate enough memories for this document\n");
             exit(1);
         }
-        strcat(doc.content, " ");
         strcat(doc.content, $2);
         free($2);
     }

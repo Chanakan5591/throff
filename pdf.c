@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "pdf.h"
 #include "document.h"
 
@@ -8,6 +9,45 @@ document_config_t doc_config;
 int page_width;
 int page_height;
 int DEV = 1;
+
+unsigned int hash_page_size(const char *str) {
+    unsigned int hash = 0;
+    while (*str) {
+        hash = (hash << 5) + *str++;
+    }
+    return hash;
+}
+
+int get_page_size_macro(const char* page_size) {
+    switch (hash_page_size(page_size)) {
+        case 2132:  // hash for "A4"
+            return HPDF_PAGE_SIZE_A4;
+        case 2131:  // hash for "A3"
+            return HPDF_PAGE_SIZE_A3;
+        case 2625329394:  // hash for "LETTER"
+            return HPDF_PAGE_SIZE_LETTER;
+        case 82027628:  // hash for "LEGAL"
+            return HPDF_PAGE_SIZE_LEGAL;
+        case 2133:  // hash for "A5"
+            return HPDF_PAGE_SIZE_A5;
+        case 2164:  // hash for "B4"
+            return HPDF_PAGE_SIZE_B4;
+        case 2165:  // hash for "B5"
+            return HPDF_PAGE_SIZE_B5;
+        case 3413847813:  // hash for "EXECUTIVE"
+            return HPDF_PAGE_SIZE_EXECUTIVE;
+        case 91904822:  // hash for "US4X6"
+            return HPDF_PAGE_SIZE_US4x6;
+        case 91904824:  // hash for "US4X8"
+            return HPDF_PAGE_SIZE_US4x8;
+        case 91905847:  // hash for "US5X7"
+            return HPDF_PAGE_SIZE_US5x7;
+        case 2333588048:  // hash for "COMM10"
+            return HPDF_PAGE_SIZE_COMM10;
+        default:
+            return HPDF_PAGE_SIZE_A4;
+    }
+}
 
 void handle_error(HPDF_STATUS status, const char *message)
 {
@@ -82,8 +122,9 @@ void finalize_pdf(const char *filename)
     HPDF_Free(pdf);
 }
 
-void set_global_page_size(char* page_size_text) {
-    doc_config.page_size = NULL; // implement soon
+void set_global_page_size(char* page_size_text) 
+{
+    doc_config.page_size = get_page_size_macro(page_size_text);
 }
 
 HPDF_Page new_page()
@@ -214,6 +255,12 @@ void initialize_first_page()
     HPDF_Page_MoveTextPos(page, (-en_affliation_x + content_left), -doc_config.main_font_size - 32);
     // start any user content
 
+    char *token;
+    while ((token = strsep(&doc.content, "\n\n"))) {
+        // physically create new line based off of previous content
+        HPDF_Page_MoveTextPos(page, 0, -doc_config.main_font_size);
+        HPDF_Page_ShowText(page, token);
+    }
 
     HPDF_Page_EndText(page);
 }
