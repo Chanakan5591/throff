@@ -18,7 +18,7 @@ document_t doc;
 }
 
 %token <str> T_STRING T_IDENTIFIER T_NEWLINE T_PAPER_TYPE
-%token T_TITLE T_AUTHOR T_AFFLIATIONS T_PAPER
+%token T_TITLE T_AUTHOR T_AFFILIATIONS T_PAPER
 
 %%
 
@@ -33,7 +33,7 @@ statements:
 statement:
     title_statement
     | author_statement
-    | affliation_statement
+    | affiliation_statement
     | paper_type_statement
     | content_statement
     ;
@@ -58,10 +58,10 @@ author_statement:
         free($3);
     }
 
-affliation_statement:
-    T_AFFLIATIONS T_STRING T_STRING {
-        doc.affliation_th = strdup($2);
-        doc.affliation_en = strdup($3);
+affiliation_statement:
+    T_AFFILIATIONS T_STRING T_STRING {
+        doc.affiliation_th = strdup($2);
+        doc.affiliation_en = strdup($3);
         printf("Thai Aff: %s\n", $2);
         printf("English Aff: %s\n", $3);
         free($2);
@@ -130,8 +130,8 @@ void free_document() {
     free(doc.author_th);
     free(doc.author_en);
     free(doc.content);
-    free(doc.affliation_en);
-    free(doc.affliation_th);
+    free(doc.affiliation_en);
+    free(doc.affiliation_th);
 }
 
 void yyerror(const char *s) {

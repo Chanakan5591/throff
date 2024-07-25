@@ -55,14 +55,14 @@
 	return T_AUTHOR;
 }
 
-.AFFLIATION {
-    fprintf(stderr, "Lex: T_AFFLIATIONS recognized: %s\n", yytext);
-    return T_AFFLIATIONS;
+.AFFILIATION {
+    fprintf(stderr, "Lex: T_AFFILIATIONS recognized: %s\n", yytext);
+    return T_AFFILIATIONS;
 }
 
 .AF {
-    fprintf(stderr, "Lex: T_AFFLIATIONS recognized: %s\n", yytext);
-    return T_AFFLIATIONS;
+    fprintf(stderr, "Lex: T_AFFILIATIONS recognized: %s\n", yytext);
+    return T_AFFILIATIONS;
 }
 
 .PAPER {

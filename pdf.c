@@ -231,28 +231,28 @@ void initialize_first_page()
     // Third line
     HPDF_Page_MoveTextPos(page, -en_author_x, -doc_config.main_font_size - 2);
 
-    /* START Affliations TH */
+    /* START affiliations TH */
     HPDF_Page_SetFontAndSize(page, doc_config.main_font, 14);
-    float affiliation_th_width = HPDF_Page_TextWidth(page, doc.affliation_th);
+    float affiliation_th_width = HPDF_Page_TextWidth(page, doc.affiliation_th);
 
-    float th_affliation_x = (content_right - affiliation_th_width) - 24;
-    HPDF_Page_MoveTextPos(page, th_affliation_x, 0);
-    HPDF_Page_ShowText(page, doc.affliation_th);
-    /* END Affliations TH */
+    float th_affiliation_x = (content_right - affiliation_th_width) - 24;
+    HPDF_Page_MoveTextPos(page, th_affiliation_x, 0);
+    HPDF_Page_ShowText(page, doc.affiliation_th);
+    /* END affiliations TH */
 
      // Fourth line
-    HPDF_Page_MoveTextPos(page, -th_affliation_x, -doc_config.main_font_size - 2);
+    HPDF_Page_MoveTextPos(page, -th_affiliation_x, -doc_config.main_font_size - 2);
 
-    /* START Affliations EN */
+    /* START affiliations EN */
     HPDF_Page_SetFontAndSize(page, doc_config.main_font, 14);
-    float affiliation_en_width = HPDF_Page_TextWidth(page, doc.affliation_en);
+    float affiliation_en_width = HPDF_Page_TextWidth(page, doc.affiliation_en);
 
-    float en_affliation_x = (content_right - affiliation_en_width) - 24;
-    HPDF_Page_MoveTextPos(page, en_affliation_x, 0);
-    HPDF_Page_ShowText(page, doc.affliation_en);
-    /* END Affliations EN */
+    float en_affiliation_x = (content_right - affiliation_en_width) - 24;
+    HPDF_Page_MoveTextPos(page, en_affiliation_x, 0);
+    HPDF_Page_ShowText(page, doc.affiliation_en);
+    /* END affiliations EN */
 
-    HPDF_Page_MoveTextPos(page, (-en_affliation_x + content_left), -doc_config.main_font_size - 32);
+    HPDF_Page_MoveTextPos(page, (-en_affiliation_x + content_left), -doc_config.main_font_size - 32);
     // start any user content
 
     char *token;

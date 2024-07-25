@@ -9,8 +9,8 @@ typedef struct {
     char *title_en;
     char *author_th;
     char *author_en;
-    char *affliation_th;
-    char *affliation_en;
+    char *affiliation_th;
+    char *affiliation_en;
     char *content;
 } document_t;
 
