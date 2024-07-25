@@ -54,6 +54,7 @@ int main(int argc, char** argv)
   fclose(yyin);
   // finished bison parsing, everything is in doc now, later, maybe utilize bison for setting every configurations required to typeset pdf
 
+  initialize_pdf_lib();
   initialize_pdf_document();
   set_main_font_and_size("fonts/THSarabunNew.ttf", 16);
   set_main_bold_font("fonts/THSarabunNew Bold.ttf");

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 #include <string.h>
 #include "pdf.h"
 #include "document.h"
@@ -8,7 +9,9 @@ document_config_t doc_config;
 
 int page_width;
 int page_height;
-int DEV = 1;
+char* throff_debug_env = "THROFF_DEBUG";
+char* is_dev_env;
+int DEV;
 
 unsigned int hash_page_size(const char *str) {
     unsigned int hash = 0;
@@ -151,6 +154,25 @@ void render_text(HPDF_Page page, HPDF_Font font, float font_size, const char* te
     float text_x = (page_width - text_width) / 2 + offset_x;
     HPDF_Page_MoveTextPos(page, text_x, offset_y);
     HPDF_Page_ShowText(page, text);
+}
+
+void initialize_pdf_lib()
+{
+    is_dev_env = getenv(throff_debug_env);
+    if(is_dev_env == NULL) {
+        return; // if no dev environment, ignore
+    }
+
+    for(int i = 0; is_dev_env[i]; i++) {
+        is_dev_env[i] = tolower(is_dev_env[i]);
+    }
+
+    // if var is falsey then return
+    // IMPLEMENTING
+
+
+    printf("debugging");
+    DEV = 1;
 }
 
 void initialize_first_page()

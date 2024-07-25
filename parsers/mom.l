@@ -35,37 +35,37 @@
     return T_STRING;
 }
 
-.TI {
+^\.TI {
 	fprintf(stderr, "Lex: T_TITLE recognized: %s\n", yytext);
 	return T_TITLE;
 }
 
-.TITLE {
+^\.TITLE {
 	fprintf(stderr, "Lex: T_TITLE recognized: %s\n", yytext);
 	return T_TITLE;
 }
 
-.AU {
+^\.AU {
 	fprintf(stderr, "Lex: T_AUTHOR recognized: %s\n", yytext);
 	return T_AUTHOR;
 }
 
-.AUTHOR {
+^\.AUTHOR {
 	fprintf(stderr, "Lex: T_AUTHOR recognized: %s\n", yytext);
 	return T_AUTHOR;
 }
 
-.AFFILIATION {
+^\.AFFILIATION {
     fprintf(stderr, "Lex: T_AFFILIATIONS recognized: %s\n", yytext);
     return T_AFFILIATIONS;
 }
 
-.AF {
+^\.AF {
     fprintf(stderr, "Lex: T_AFFILIATIONS recognized: %s\n", yytext);
     return T_AFFILIATIONS;
 }
 
-.PAPER {
+^\.PAPER {
     fprintf(stderr, "Lex: T_PAPER_TYPE recognized: %s\n", yytext);
     return T_PAPER;
 }
